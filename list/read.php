@@ -49,10 +49,10 @@
             <td><?php echo $list['list_title']; ?></td>
             <td><?php echo $list['list_subtitle']; ?></td>
             <td><?php echo date('d-m-Y H:i', strtotime($list['list_date'])); ?></td>
-            <td><a href="<?php echo $app['url']; ?>/share.php?id=<?php echo $list['list_id'] ?>">Link</a></td>
+            <td><a href="<?php echo $app['url']; ?>/<?php echo $list['list_id'] ?>">Link</a></td>
             <td><?php echo $list['list_code']; ?></td>
             <td>
-            <a href="<?php echo $app['url']; ?>/product/read?list=<?php echo $list['list_id']; ?>" class="btn btn-success">Ønsker</a>
+            <a href="<?php echo $app['url']; ?>/gift/read?list=<?php echo $list['list_id']; ?>" class="btn btn-success">Ønsker</a>
               <a href="<?php echo $app['url']; ?>/list/update?id=<?php echo $list['list_id']; ?>" class="btn btn-warning">Rediger</a>
               <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/list/delete?id=<?php echo $list['list_id'] ?>" class="btn btn-danger">Slet</a>
             </td>

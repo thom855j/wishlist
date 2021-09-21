@@ -16,3 +16,8 @@ function user($user_id = 'user') {
     }
     return false;
 }
+
+function redirect($url) {
+    global $app;
+    return header('Location: ' . $app['url'] . $url);
+}
