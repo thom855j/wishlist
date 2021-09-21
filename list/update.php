@@ -1,4 +1,6 @@
-<?php include 'includes/header.php'; ?>   
+<?php include '../app/config.php'; ?>
+
+<?php include '../app/templates/header.php'; ?>     
 
 <?php 
 
@@ -11,7 +13,7 @@ if(!empty($_POST)) {
     'list_code' => $app['db']->CleanDBData($_POST['code'])
   ], ['list_id' => $list_id]);
 
-  header('Location: ' . $app['url'] . '/list.php');
+  header('Location: ' . $app['url'] . '/list/read');
 } 
 
 $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_id)[0]; 
@@ -20,7 +22,7 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
 
 <title>Rediger ønskeliste</title>
 
-<?php include 'templates/crud.php'; ?>
+<?php include '../app/templates/crud.php'; ?>
 
   </head>
 
@@ -36,6 +38,6 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
  
       <button class="btn btn-lg btn-primary btn-block" type="submit">Gem ønskeliste</button>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/list.php">Gå tilbage</a>
+      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/list/read">Gå tilbage</a>
       <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
     </form> 

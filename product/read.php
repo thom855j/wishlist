@@ -1,6 +1,8 @@
-<?php include 'includes/header.php'; ?>   
+<?php include '../app/functions.php'; ?>;
+<?php include '../app/templates/header.php'; ?>   
 
-<?php include 'templates/app.php'; ?>
+
+<?php include '../app/templates/app.php'; ?>
 
 <?php
 
@@ -20,7 +22,7 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
     <span class="fs-4"><?php echo $app['name']; ?></span>
       </a>
 
-      <?php include 'includes/nav.php'; ?>
+      <?php include '../app/templates/nav.php'; ?>
     </div>
   </header>
   
@@ -28,8 +30,9 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
       
   <h2 id="produkter" class="display-6 text-center mb-4"><?php echo $list[0]['list_title']; ?></h2>
     <p class="text-center"><?php echo $list[0]['list_subtitle']; ?></p>
-    <a href="<?php echo $app['url'] ?>/product-new.php"><button type="button" class=" btn btn-primary">Tilføj ønske</button></a>
-    <a href="<?php echo $app['url'] ?>/list.php"><button type="button" class=" btn btn-secondary">Tilbage til lister</button></a>
+    <p class="text-center"><?php echo date('d-m-Y H:i', strtotime($list[0]['list_date'])); ?></p>
+    <a href="<?php echo $app['url'] ?>/product/create"><button type="button" class=" btn btn-primary">Tilføj ønske</button></a>
+    <a href="<?php echo $app['url'] ?>/list/read"><button type="button" class=" btn btn-secondary">Tilbage til lister</button></a>
 
     <div class="table-responsive">
       <table class="table text-center">
@@ -50,7 +53,7 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
         <tbody>
           <tr>
             <td>2</td>
-            <td><img src="<?php echo $app['url']; ?>/uploads/eis.png" width="100" height="50"></td>
+            <td><img src="<?php echo $app['url']; ?>/public/uploads/eis.png" width="100" height="50"></td>
             <td>Test</td>
             <td>5</td>
             <td>0</td>
@@ -58,7 +61,7 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
             <td>Ønsket meget!</td>
             <th><a href="">Test</a></th>
             <td>
-              <a href="<?php echo $app['url']; ?>/product-edit.php?id=1&list=3" class="btn btn-warning">Rediger</a>
+              <a href="<?php echo $app['url']; ?>/product/update?id=1&list=3" class="btn btn-warning">Rediger</a>
               <a href="" class="btn btn-danger">Slet</a>
           </td>
           </tr>
@@ -72,4 +75,4 @@ $list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_
 
   
 
-  <?php include 'includes/footer.php'; ?>    
+  <?php include '../app/templates/footer.php'; ?>    

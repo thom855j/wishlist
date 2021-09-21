@@ -7,8 +7,7 @@ error_reporting(E_ALL);
 require 'classes/db.class.php';
 require 'classes/simple.db.class.php';
 
-
-//$app['db'] = new DB('localhost', 'root', '', 'dev');
+session_start();
 
 $app['db'] = new SimpleDB(['host' => 'localhost', 'user' => 'root','pass' => '','database' => 'dev']);
 
@@ -16,6 +15,6 @@ $app['url'] = 'http://localhost/whishlist';
 
 $app['asset'] = $app['url'] . '/public/assets';
 
-$app['name'] = 'Ønskeliste';
+$app['name'] = 'Ønskelister';
 
-$app['title'] = 'Min Ønskeliste - Ønskelister til alle begivenheder';
+$app['title'] = 'Mine Ønskelister - Ønskelister til alle begivenheder';

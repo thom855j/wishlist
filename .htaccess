@@ -1,7 +1,7 @@
 Options +FollowSymLinks
+Options -Multiviews
+
 RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME}.php -f
-#RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [QSA,L]
-
-RewriteRule ^share/([^/]+)/?$ share.php?id=$1 [NC,L,QSA]
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
