@@ -9,13 +9,16 @@ require 'classes/simple.db.class.php';
 
 session_start();
 
+$app['version'] = '1.0';
+
 $app['cookie_name'] = 'session';
 $app['session_name'] = 'user';
 $app['list_name'] = 'list';
+$app['db_prefix'] = 'wish_';
 
 $app['db'] = new SimpleDB(['host' => 'localhost', 'user' => 'root','pass' => '','database' => 'dev']);
 
-$app['url'] = 'http://localhost/whishlist';
+$app['url'] = 'http://localhost/wishlist';
 
 $app['asset'] = $app['url'] . '/public/assets';
 

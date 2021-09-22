@@ -8,7 +8,7 @@ $gift_id = $_GET['id'];
 
 if(!empty($_POST)) {
 
-  $app['db']->Update('whish_gifts', [
+  $app['db']->Update('wish_gifts', [
     'gift_name' => $app['db']->CleanDBData($_POST['name']),
     'gift_image' => $app['db']->CleanDBData($_POST['img']),
     'gift_qty' => $app['db']->CleanDBData($_POST['qty']),
@@ -21,7 +21,7 @@ if(!empty($_POST)) {
 
 } 
 
-$gift = $app['db']->Select('select * from whish_gifts where gift_id = ' . $gift_id)[0];
+$gift = $app['db']->Select('select * from wish_gifts where gift_id = ' . $gift_id)[0];
 ?>
 
 <title>Rediger gave</title>

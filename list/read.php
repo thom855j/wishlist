@@ -8,7 +8,7 @@
 
 <?php 
 $user_id = user();
-$lists = $app['db']->Select("SELECT * from whish_lists WHERE list_user = $user_id"); 
+$lists = $app['db']->Select("SELECT * from wish_lists WHERE list_user = $user_id"); 
 ?>
 
 <title>Mine ønskelister</title>

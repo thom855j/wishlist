@@ -7,7 +7,7 @@ if(!empty($_POST)) {
 
     $list_id = $app['db']->CleanDBData($_GET['list']);
     $code =  $app['db']->CleanDBData($_POST['code']);
-    $list = $app['db']->Select("SELECT * FROM whish_lists WHERE list_code = '$code' ");
+    $list = $app['db']->Select("SELECT * FROM wish_lists WHERE list_code = '$code' ");
 
 
   if(!empty($list)) {

@@ -7,9 +7,9 @@
 <?php
 
 $list_id = $app['db']->CleanDBData($_GET['list']);
-$list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_id);
+$list = $app['db']->Select('select * from wish_lists where list_id = ' . $list_id);
 
-$gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $list_id);
+$gifts = $app['db']->Select('select * from wish_gifts where gift_list = ' . $list_id);
 
 ?>
 

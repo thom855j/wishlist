@@ -5,7 +5,7 @@
 $cookie_name = $app['session_name'];
 if(isset($_COOKIE[$cookie_name])) {
   $user_hash = $_COOKIE[$cookie_name];
-  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_session = '$user_hash' ");
+  $user = $app['db']->Select("SELECT * FROM wish_users WHERE user_session = '$user_hash' ");
 
   if(!empty($user)) {
     login($user[0]['user_id']);
@@ -17,7 +17,7 @@ if(!empty($_POST)) {
 
   $login =  $app['db']->CleanDBData($_POST['login']);
   $password =  $app['db']->CleanDBData(md5($_POST['password']));
-  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = '$login' OR user_name = '$login' AND user_pass = '$password' ");
+  $user = $app['db']->Select("SELECT * FROM wish_users WHERE user_email = '$login' OR user_name = '$login' AND user_pass = '$password' ");
 
   if(!empty($user)) {
 
@@ -25,7 +25,7 @@ if(!empty($_POST)) {
 
       $user_hash = md5($user[0]['user_id']);
   
-      $app['db']->Update('whish_users', [
+      $app['db']->Update('wish_users', [
         'user_session' => $user_hash
       ], ['user_id' => $user[0]['user_id']]);
   

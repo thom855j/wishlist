@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 22. 09 2021 kl. 22:10:12
+-- Genereringstid: 22. 09 2021 kl. 22:26:38
 -- Serverversion: 10.4.21-MariaDB
 -- PHP-version: 8.0.10
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `whish_gifts`
+-- Struktur-dump for tabellen `wish_gifts`
 --
 
-CREATE TABLE `whish_gifts` (
+CREATE TABLE `wish_gifts` (
   `gift_id` bigint(20) NOT NULL,
   `gift_image` varchar(255) DEFAULT NULL,
   `gift_name` varchar(255) DEFAULT NULL,
@@ -40,10 +40,10 @@ CREATE TABLE `whish_gifts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `whish_gifts`
+-- Data dump for tabellen `wish_gifts`
 --
 
-INSERT INTO `whish_gifts` (`gift_id`, `gift_image`, `gift_name`, `gift_qty`, `gift_reservations`, `gift_price`, `gift_note`, `gift_link`, `gift_list`) VALUES
+INSERT INTO `wish_gifts` (`gift_id`, `gift_image`, `gift_name`, `gift_qty`, `gift_reservations`, `gift_price`, `gift_note`, `gift_link`, `gift_list`) VALUES
 (9, '', 'Kaffekande', 6, 2, '200.00', '', '', 2),
 (10, '', 'Briller', 2, 1, '500.00', '', '', 2),
 (11, '', 'Vase', 5, 1, '9999.95', '', '', 4);
@@ -51,10 +51,10 @@ INSERT INTO `whish_gifts` (`gift_id`, `gift_image`, `gift_name`, `gift_qty`, `gi
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `whish_lists`
+-- Struktur-dump for tabellen `wish_lists`
 --
 
-CREATE TABLE `whish_lists` (
+CREATE TABLE `wish_lists` (
   `list_id` bigint(20) NOT NULL,
   `list_date` datetime DEFAULT NULL,
   `list_title` text DEFAULT NULL,
@@ -66,20 +66,20 @@ CREATE TABLE `whish_lists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Data dump for tabellen `whish_lists`
+-- Data dump for tabellen `wish_lists`
 --
 
-INSERT INTO `whish_lists` (`list_id`, `list_date`, `list_title`, `list_subtitle`, `list_link`, `list_user`, `list_code`, `list_active`) VALUES
-(2, '2022-08-13 00:05:36', 'Bryllup', 'Caroline & Thomas', 'c81e728d9d4c2f636f067f89cc14862c', 1, '321', 1),
+INSERT INTO `wish_lists` (`list_id`, `list_date`, `list_title`, `list_subtitle`, `list_link`, `list_user`, `list_code`, `list_active`) VALUES
+(2, '2022-08-13 00:05:36', 'Bryllup', 'Caroline & Thomas', 'c81e728d9d4c2f636f067f89cc14862c', 1, '', 1),
 (4, '2021-12-10 19:00:50', 'Min fødselsdag', 'Thomas', 'a87ff679a2f3e71d9181a67b7542122c', 1, '123', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `whish_sessions`
+-- Struktur-dump for tabellen `wish_sessions`
 --
 
-CREATE TABLE `whish_sessions` (
+CREATE TABLE `wish_sessions` (
   `session_id` bigint(20) NOT NULL,
   `session_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `session_list` bigint(20) NOT NULL,
@@ -88,20 +88,20 @@ CREATE TABLE `whish_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Data dump for tabellen `whish_sessions`
+-- Data dump for tabellen `wish_sessions`
 --
 
-INSERT INTO `whish_sessions` (`session_id`, `session_date`, `session_list`, `session_hash`, `session_gifts`) VALUES
+INSERT INTO `wish_sessions` (`session_id`, `session_date`, `session_list`, `session_hash`, `session_gifts`) VALUES
 (19, '2021-09-22 19:32:09', 2, '1f0e3dad99908345f7439f8ffabdffc4', '{\"9\":\"1\"}'),
 (20, '2021-09-22 19:39:21', 4, '1f0e3dad99908345f7439f8ffabdffc4', '{\"11\":\"1\"}');
 
 -- --------------------------------------------------------
 
 --
--- Struktur-dump for tabellen `whish_users`
+-- Struktur-dump for tabellen `wish_users`
 --
 
-CREATE TABLE `whish_users` (
+CREATE TABLE `wish_users` (
   `user_id` bigint(20) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
@@ -111,10 +111,10 @@ CREATE TABLE `whish_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Data dump for tabellen `whish_users`
+-- Data dump for tabellen `wish_users`
 --
 
-INSERT INTO `whish_users` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_reset`, `user_session`) VALUES
+INSERT INTO `wish_users` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_reset`, `user_session`) VALUES
 (1, 'john', '1a1dc91c907325c69271ddf0c944bc72', 'john@example.com', '', 'c4ca4238a0b923820dcc509a6f75849b');
 
 --
@@ -122,27 +122,27 @@ INSERT INTO `whish_users` (`user_id`, `user_name`, `user_pass`, `user_email`, `u
 --
 
 --
--- Indeks for tabel `whish_gifts`
+-- Indeks for tabel `wish_gifts`
 --
-ALTER TABLE `whish_gifts`
+ALTER TABLE `wish_gifts`
   ADD PRIMARY KEY (`gift_id`);
 
 --
--- Indeks for tabel `whish_lists`
+-- Indeks for tabel `wish_lists`
 --
-ALTER TABLE `whish_lists`
+ALTER TABLE `wish_lists`
   ADD PRIMARY KEY (`list_id`);
 
 --
--- Indeks for tabel `whish_sessions`
+-- Indeks for tabel `wish_sessions`
 --
-ALTER TABLE `whish_sessions`
+ALTER TABLE `wish_sessions`
   ADD PRIMARY KEY (`session_id`);
 
 --
--- Indeks for tabel `whish_users`
+-- Indeks for tabel `wish_users`
 --
-ALTER TABLE `whish_users`
+ALTER TABLE `wish_users`
   ADD PRIMARY KEY (`user_id`);
 
 --
@@ -150,27 +150,27 @@ ALTER TABLE `whish_users`
 --
 
 --
--- Tilføj AUTO_INCREMENT i tabel `whish_gifts`
+-- Tilføj AUTO_INCREMENT i tabel `wish_gifts`
 --
-ALTER TABLE `whish_gifts`
+ALTER TABLE `wish_gifts`
   MODIFY `gift_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Tilføj AUTO_INCREMENT i tabel `whish_lists`
+-- Tilføj AUTO_INCREMENT i tabel `wish_lists`
 --
-ALTER TABLE `whish_lists`
+ALTER TABLE `wish_lists`
   MODIFY `list_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Tilføj AUTO_INCREMENT i tabel `whish_sessions`
+-- Tilføj AUTO_INCREMENT i tabel `wish_sessions`
 --
-ALTER TABLE `whish_sessions`
+ALTER TABLE `wish_sessions`
   MODIFY `session_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Tilføj AUTO_INCREMENT i tabel `whish_users`
+-- Tilføj AUTO_INCREMENT i tabel `wish_users`
 --
-ALTER TABLE `whish_users`
+ALTER TABLE `wish_users`
   MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 

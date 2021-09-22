@@ -8,11 +8,11 @@ if(!empty($_POST)) {
   $username = explode('@', $email)[0];
   $password =  $app['db']->CleanDBData(md5($_POST['password']));
 
-  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = '$email' ");
+  $user = $app['db']->Select("SELECT * FROM wish_users WHERE user_email = '$email' ");
 
   if(!$user) {
       
-    $user_id = $app['db']->Insert('whish_users', [
+    $user_id = $app['db']->Insert('wish_users', [
         'user_name' => $username,
         'user_email' => $email,
         'user_pass' => md5($password)

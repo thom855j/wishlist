@@ -7,7 +7,7 @@ if(!empty($_POST)) {
   $phptime = $app['db']->CleanDBData($_POST['date']);
   $mysqltime = date('Y-m-d H:i:s', strtotime($phptime));
 
-  $list_id = $app['db']->Insert('whish_lists', [
+  $list_id = $app['db']->Insert('wish_lists', [
     'list_title' => $app['db']->CleanDBData($_POST['title']),
     'list_date' => $mysqltime,
     'list_subtitle' => $app['db']->CleanDBData($_POST['subtitle']),
@@ -15,7 +15,7 @@ if(!empty($_POST)) {
     'list_user' => user()
   ]);
 
-  $app['db']->Update('whish_lists', [
+  $app['db']->Update('wish_lists', [
     'list_link' => md5($list_id)
   ], ['list_id' => $list_id]);
 

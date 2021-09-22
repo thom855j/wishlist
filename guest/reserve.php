@@ -10,7 +10,7 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
     $gift_id = $_GET['gift'];
 
     $user_hash = $_COOKIE[$cookie_name];
-    $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$user_hash'")[0];
+    $session = $app['db']->Select("SELECT * from wish_sessions where session_hash = '$user_hash'")[0];
     
     $session_gifts = json_decode($session['session_gifts'], true);
     $qty = $session_gifts[$gift_id];
@@ -19,13 +19,13 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
 
     $session_gifts = json_encode($session_gifts);
 
-    $app['db']->Update('whish_sessions', [
+    $app['db']->Update('wish_sessions', [
         'session_gifts' =>  $session_gifts
     ], ['session_hash' => $user_hash]);
 
-    $gift = $app['db']->Select("SELECT * from whish_gifts where gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
+    $gift = $app['db']->Select("SELECT * from wish_gifts where gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
 
-    $app['db']->Update('whish_gifts', [
+    $app['db']->Update('wish_gifts', [
         'gift_reservations' => $gift['gift_reservations'] - $qty
     ], ['gift_id' => $gift_id]);
 
@@ -39,9 +39,9 @@ if(!empty($_POST)) {
     $gift_id = $_POST['gift'];
     $qty =  $_POST['qty'];
 
-    $gift = $app['db']->Select("SELECT * FROM whish_gifts WHERE gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
+    $gift = $app['db']->Select("SELECT * FROM wish_gifts WHERE gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
 
-    $app['db']->Update('whish_gifts', [
+    $app['db']->Update('wish_gifts', [
         'gift_reservations' => $gift['gift_reservations'] + $qty
     ], ['gift_id' => $gift_id]);
 
@@ -50,7 +50,7 @@ if(!empty($_POST)) {
     if(isset($_COOKIE[$cookie_name])) {
 
         $user_hash = $_COOKIE[$cookie_name];
-        $session = $app['db']->Select("SELECT * FROM whish_sessions WHERE session_hash = '$user_hash' AND session_list = $list_id");
+        $session = $app['db']->Select("SELECT * FROM wish_sessions WHERE session_hash = '$user_hash' AND session_list = $list_id");
     
         if(!empty($session)) {
 
@@ -59,13 +59,13 @@ if(!empty($_POST)) {
     
             $session_gifts = json_encode($session_gifts);
     
-            $app['db']->Update('whish_sessions', [
+            $app['db']->Update('wish_sessions', [
                 'session_gifts' => $session_gifts
             ], ['session_hash' => $user_hash]);
 
         } else {
             
-            $app['db']->Insert('whish_sessions', [
+            $app['db']->Insert('wish_sessions', [
                 'session_list' => $list_id,
                 'session_gifts' => $gifts,
                 'session_hash' => $user_hash
@@ -74,14 +74,14 @@ if(!empty($_POST)) {
 
     } else {
 
-        $session_id = $app['db']->Insert('whish_sessions', [
+        $session_id = $app['db']->Insert('wish_sessions', [
             'session_list' => $list_id,
             'session_gifts' => $gifts
         ]);
 
         $hash = md5($session_id);
 
-        $app['db']->Update('whish_sessions', [
+        $app['db']->Update('wish_sessions', [
             'session_hash' => $hash
         ], ['session_id' => $session_id]);
     

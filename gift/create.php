@@ -7,7 +7,7 @@ $list_id = $_GET['list'];
 
 if(!empty($_POST)) {
 
-  $app['db']->Insert('whish_gifts', [
+  $app['db']->Insert('wish_gifts', [
     'gift_name' => $app['db']->CleanDBData($_POST['name']),
     'gift_image' => $app['db']->CleanDBData($_POST['img']),
     'gift_qty' => $app['db']->CleanDBData($_POST['qty']),

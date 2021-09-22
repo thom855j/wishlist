@@ -5,7 +5,7 @@ include '../app/includes/functions.php';
 $gift_id = $app['db']->CleanDBData($_GET['id']);
 $list_id = $app['db']->CleanDBData($_GET['list']);
 
-$list = $app['db']->Delete('whish_gifts', [
+$list = $app['db']->Delete('wish_gifts', [
     'gift_id' => $gift_id,
     'gift_list' => $list_id
 ]);
