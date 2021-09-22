@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>
+<?php include '../app/includes/functions.php'; ?>
 
 <?php include '../app/templates/header.php'; ?>   
 
@@ -6,7 +6,10 @@
 
 <?php is_auth(); ?>
 
-<?php $lists = $app['db']->Select('select * from whish_lists'); ?>
+<?php 
+$user_id = user();
+$lists = $app['db']->Select("SELECT * from whish_lists WHERE list_user = $user_id"); 
+?>
 
 <title>Mine ønskelister</title>
 </head>

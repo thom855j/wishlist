@@ -11,6 +11,7 @@ session_start();
 
 $app['cookie_name'] = 'session';
 $app['session_name'] = 'user';
+$app['list_name'] = 'list';
 
 $app['db'] = new SimpleDB(['host' => 'localhost', 'user' => 'root','pass' => '','database' => 'dev']);
 

@@ -1,16 +1,38 @@
-<?php include '../app/functions.php'; ?>
+<?php include '../app/includes/functions.php'; ?>
 <?php include '../app/templates/header.php' ?>
 
 <?php
+$cookie_name = $app['session_name'];
+if(isset($_COOKIE[$cookie_name])) {
+  $user_hash = $_COOKIE[$cookie_name];
+  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_session = '$user_hash' ");
+
+  if(!empty($user)) {
+    login($user[0]['user_id']);
+    redirect('/list/read');
+  }
+}
+
 if(!empty($_POST)) {
 
   $login =  $app['db']->CleanDBData($_POST['login']);
   $password =  $app['db']->CleanDBData(md5($_POST['password']));
-  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = '$login' OR user_name = '$login' AND user_pass = '$password' ")[0];
+  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = '$login' OR user_name = '$login' AND user_pass = '$password' ");
 
+  if(!empty($user)) {
 
-  if($user) {
-    login($user['user_id']);
+    if(isset($_POST['remember'])) {
+
+      $user_hash = md5($user[0]['user_id']);
+  
+      $app['db']->Update('whish_users', [
+        'user_session' => $user_hash
+      ], ['user_id' => $user[0]['user_id']]);
+  
+      setcookie($cookie_name, $user_hash, time() + (86400 * 7), "/"); 
+    }
+
+    login($user[0]['user_id']);
     redirect('/list/read');
   } else {
 ?>
@@ -37,7 +59,7 @@ if(!empty($_POST)) {
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Kode" required="">
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> Husk mig
+          <input type="checkbox" name="remember" value="remember-me"> Husk mig
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log på</button>

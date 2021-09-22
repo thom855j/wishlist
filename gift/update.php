@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>;
+<?php include '../app/includes/functions.php'; ?>;
 <?php include '../app/templates/header.php'; ?>   
 
 <?php 
@@ -38,7 +38,7 @@ $gift = $app['db']->Select('select * from whish_gifts where gift_id = ' . $gift_
       <label for="img" >Billedlink</label>
       <input type="text" name="img" id="img" class="form-control" placeholder="Billedelink" value="<?php echo $gift['gift_image'] ?>">
       <label for="price" >Pris</label>
-      <input type="number" name="price" id="price" class="form-control" placeholder="Pris" value="<?php echo $gift['gift_price'] ?>">
+      <input type="number" step=".01" name="price" id="price" class="form-control" placeholder="Pris" value="<?php echo $gift['gift_price'] ?>">
       <label for="price" >Link</label>
       <input type="url" name="link" id="link" class="form-control" placeholder="Link" value="<?php echo $gift['gift_link'] ?>">
       <label for="note" >Note</label>

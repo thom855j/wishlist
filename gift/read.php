@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>;
+<?php include '../app/includes/functions.php'; ?>;
 <?php include '../app/templates/header.php'; ?>   
 
 
@@ -53,7 +53,7 @@ $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $li
                 <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="150" height="100"></td>
               <?php endif; ?>
               <td><?php echo $gift['gift_name']; ?></td>
-              <td><?php echo $gift['gift_price']; ?></td>
+              <td><?php echo number_format($gift['gift_price'],2,',','.'); ?></td>
               <?php if(!empty($gift['gift_link'])): ?>
               <th><a target="_blank" href="<?php echo $gift['gift_link']; ?>">Link</a></th>
               <?php else: ?>

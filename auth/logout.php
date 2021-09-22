@@ -1,6 +1,6 @@
 <?php 
 
-include '../app/functions.php'; 
+include '../app/includes/functions.php'; 
 
 logout();
 

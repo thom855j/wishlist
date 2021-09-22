@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>;
+<?php include '../app/includes/functions.php'; ?>;
 <?php include '../app/templates/header.php'; ?>   
 
 <?php 
@@ -35,7 +35,7 @@ if(!empty($_POST)) {
       <label for="img" class="sr-only">Billedlink</label>
       <input type="text" name="img" id="img" class="form-control" placeholder="Billedelink">
       <label for="price" class="sr-only">Pris</label>
-      <input type="number" name="price" id="price" class="form-control" placeholder="Pris">
+      <input type="number" step=".01" name="price" id="price" class="form-control" placeholder="Pris">
       <label for="price" class="sr-only">Link</label>
       <input type="url" name="link" id="link" class="form-control" placeholder="Link">
       <label for="note" class="sr-only">Note</label>

@@ -1,6 +1,6 @@
 <?php
 
-include '../app/functions.php'; 
+include '../app/includes/functions.php'; 
 
 $gift_id = $app['db']->CleanDBData($_GET['id']);
 $list_id = $app['db']->CleanDBData($_GET['list']);

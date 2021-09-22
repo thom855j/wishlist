@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>
+<?php include '../app/includes/functions.php'; ?>
 <?php include '../app/templates/header.php' ?>
 
 <?php
@@ -46,7 +46,7 @@ if(!empty($_POST)) {
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Kode" required="">
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> Jeg accepptere hjemmesidens vilkår og betingelser.
+          <input type="checkbox" value="remember-me"> Jeg acceppterer vilkår og betingelser.
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Opret</button>

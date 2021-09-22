@@ -1,4 +1,4 @@
-<?php include '../app/functions.php'; ?>   
+<?php include '../app/includes/functions.php'; ?>   
 <?php include '../app/templates/header.php'; ?>   
 
 <?php include '../app/templates/app.php'; ?>
@@ -7,14 +7,18 @@
 $cookie_name = $app['cookie_name'];
 
 $list_id = $app['db']->CleanDBData($_GET['id']);
-$list = $app['db']->Select('select * from whish_lists where list_id = ' . $list_id); 
+$list = $app['db']->Select("SELECT * FROM whish_lists WHERE list_id = '$list_id' OR list_link = '$list_id'"); 
+
+if(!empty($list[0]['list_code']) && !list_auth($list_id)) {
+  redirect('/guest/login?list=' . $list_id);
+}
 
 if(!empty($list)) {
-  $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $list_id); 
+  $gifts = $app['db']->Select("SELECT * FROM whish_gifts WHERE gift_list = '$list_id'"); 
 
   if(isset($_COOKIE[$cookie_name])) {
     $session_hash = $_COOKIE[$cookie_name];
-    $visitor = $app['db']->Select("SELECT * from whish_sessions where session_list = '$list_id' AND session_hash = '$session_hash'"); 
+    $visitor = $app['db']->Select("SELECT * FROM whish_sessions WHERE session_list = '$list_id' AND session_hash = '$session_hash'"); 
     if(!empty($visitor)) {
       $visitor = json_decode($visitor[0]['session_gifts'], true);
     }
@@ -49,8 +53,8 @@ if(!empty($list)) {
             <th>Pris</th>
             <th>Link</th>
             <th>Note</th>
-            <th>Ønsket</th>
-            <th>Reserveret</th>
+            <th>Ønsket antal</th>
+            <th>Antal købt</th>
             <th></th>
           </tr>
         </thead>
@@ -64,7 +68,7 @@ if(!empty($list)) {
                 <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="150" height="100"></td>
               <?php endif; ?>
             <td><?php echo $gift['gift_name']; ?></td>
-            <td><?php echo $gift['gift_price']; ?> kr.</td>
+            <td><?php echo number_format($gift['gift_price'],2,',','.'); ?> kr.</td>
             <td>
               <?php if(!empty($gift['gift_link'])): ?>
               <a href="<?php echo $gift['gift_link']; ?>">Link</a>
@@ -73,25 +77,25 @@ if(!empty($list)) {
             <td><?php echo $gift['gift_note']; ?></td>
             <td><?php echo $gift['gift_qty']; ?></td>
             <td><?php echo $gift['gift_reservations']; ?></td>
-            <?php if($gift['gift_qty'] != $gift['gift_reservations']): ?>
-            <td>
-              <?php 
+            <?php 
               $gift_id = $gift['gift_id']; 
-              ?>
+            ?>
+            <?php if($gift['gift_qty'] != $gift['gift_reservations'] || isset($visitor[$gift_id])): ?>
+              <td>
               <?php if(!isset($visitor[$gift_id])): ?>
-            <form action="<?php url('/guest/reserve'); ?>" method="post">
-            <input type="number" id="qty" name="qty" min="1" max="<?php echo $gift['gift_qty'] - $gift['gift_reservations']; ?>" value="1" required>
-            <input type="hidden" name="gift" value="<?php echo $gift['gift_id']; ?>">
-            <input type="hidden" name="list" value="<?php echo $gift['gift_list']; ?>">
-            <input type="submit" class="btn btn-primary" value="Reservér">
-            </form>
+              <form action="<?php url('/guest/reserve'); ?>" method="post">
+              <input type="number" id="qty" name="qty" min="1" max="<?php echo $gift['gift_qty'] - $gift['gift_reservations']; ?>" value="1" required>
+              <input type="hidden" name="gift" value="<?php echo $gift['gift_id']; ?>">
+              <input type="hidden" name="list" value="<?php echo $gift['gift_list']; ?>">
+              <input onclick="return confirm('Er du sikker på du vil reservere denne gave?');" type="submit" class="btn btn-primary" value="Reservér">
+              </form>
+              <?php else: ?>
+                <p>Du har reserveret: <?php echo $visitor[$gift_id] ?></p>
+                <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/guest/reserve?delete=1&gift=<?php echo $gift['gift_id']; ?>&list=<?php echo $gift['gift_list']; ?>&qty=<?php echo $visitor[$gift_id] ?>" class="btn btn-secondary">Fortryd reservation?</a>
+              <?php endif; ?>
+              </td>
             <?php else: ?>
-              <p>Du har reserveret: <?php echo $visitor[$gift_id] ?></p>
-              <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/guest/reserve?delete=1&gift=<?php echo $gift['gift_id']; ?>&list=<?php echo $gift['gift_list']; ?>&qty=<?php echo $visitor[$gift_id] ?>" class="btn btn-secondary">Fortryd reservation?</a>
-            <?php endif; ?>
-            </td>
-            <?php else: ?>
-              <td>OK</td>
+              <td style="font-style: italic; font-weight: bold; width: 150px;">ER ALLE ALLEREDE KØBT AF ANDRE</td>
             <?php endif; ?>
           </tr>
           <?php endforeach; ?>

@@ -1,6 +1,6 @@
 <?php
 
-include '../app/functions.php';
+include '../app/includes/functions.php';
 
 $cookie_name = $app['cookie_name'];
 
@@ -9,8 +9,8 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
     $list_id = $_GET['list'];
     $gift_id = $_GET['gift'];
 
-    $visitor = $_COOKIE[$cookie_name];
-    $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$visitor'")[0];
+    $user_hash = $_COOKIE[$cookie_name];
+    $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$user_hash'")[0];
     
     $session_gifts = json_decode($session['session_gifts'], true);
     $qty = $session_gifts[$gift_id];
@@ -21,7 +21,7 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
 
     $app['db']->Update('whish_sessions', [
         'session_gifts' =>  $session_gifts
-    ], ['session_hash' => $visitor]);
+    ], ['session_hash' => $user_hash]);
 
     $gift = $app['db']->Select("SELECT * from whish_gifts where gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
 
@@ -39,18 +39,19 @@ if(!empty($_POST)) {
     $gift_id = $_POST['gift'];
     $qty =  $_POST['qty'];
 
-    $gift = $app['db']->Select("SELECT * from whish_gifts where gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
+    $gift = $app['db']->Select("SELECT * FROM whish_gifts WHERE gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
 
     $app['db']->Update('whish_gifts', [
         'gift_reservations' => $gift['gift_reservations'] + $qty
     ], ['gift_id' => $gift_id]);
 
+    $gifts = json_encode([$gift_id => $qty]);
+
     if(isset($_COOKIE[$cookie_name])) {
 
-        $visitor = $_COOKIE[$cookie_name];
-        $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$visitor' AND session_list = $list_id");
+        $user_hash = $_COOKIE[$cookie_name];
+        $session = $app['db']->Select("SELECT * FROM whish_sessions WHERE session_hash = '$user_hash' AND session_list = $list_id");
     
-
         if(!empty($session)) {
 
             $session_gifts = json_decode($session[0]['session_gifts'], true);
@@ -60,15 +61,18 @@ if(!empty($_POST)) {
     
             $app['db']->Update('whish_sessions', [
                 'session_gifts' => $session_gifts
-            ], ['session_hash' => $visitor]);
+            ], ['session_hash' => $user_hash]);
 
-        } 
+        } else {
+            
+            $app['db']->Insert('whish_sessions', [
+                'session_list' => $list_id,
+                'session_gifts' => $gifts,
+                'session_hash' => $user_hash
+            ]);
+        }
 
     } else {
-
-        $list = $app['db']->Select("SELECT * from whish_lists where list_id = '$list_id' ")[0];
-        
-        $gifts = json_encode([$gift_id => $qty]);
 
         $session_id = $app['db']->Insert('whish_sessions', [
             'session_list' => $list_id,

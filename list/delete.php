@@ -1,6 +1,6 @@
-<?php
+h<?php
 
-include '../app/functions.php';
+include '../app/includes/functions.php';
 
 $list_id = $app['db']->CleanDBData($_GET['id']);
 
