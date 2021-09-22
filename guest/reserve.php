@@ -10,7 +10,7 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
     $gift_id = $_GET['gift'];
 
     $visitor = $_COOKIE[$cookie_name];
-    $session = $app['db']->Select("SELECT * from whish_sessions where session_id = '$visitor'")[0];
+    $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$visitor'")[0];
     
     $session_gifts = json_decode($session['session_gifts'], true);
     $qty = $session_gifts[$gift_id];
@@ -21,7 +21,7 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
 
     $app['db']->Update('whish_sessions', [
         'session_gifts' =>  $session_gifts
-    ], ['session_id' => $visitor]);
+    ], ['session_hash' => $visitor]);
 
     $gift = $app['db']->Select("SELECT * from whish_gifts where gift_id = '$gift_id' AND gift_list = '$list_id' ")[0];
 
@@ -48,7 +48,7 @@ if(!empty($_POST)) {
     if(isset($_COOKIE[$cookie_name])) {
 
         $visitor = $_COOKIE[$cookie_name];
-        $session = $app['db']->Select("SELECT * from whish_sessions where session_id = '$visitor' AND session_list = $list_id");
+        $session = $app['db']->Select("SELECT * from whish_sessions where session_hash = '$visitor' AND session_list = $list_id");
     
 
         if(!empty($session)) {
@@ -60,7 +60,7 @@ if(!empty($_POST)) {
     
             $app['db']->Update('whish_sessions', [
                 'session_gifts' => $session_gifts
-            ], ['session_id' => $visitor]);
+            ], ['session_hash' => $visitor]);
 
         } 
 
@@ -75,11 +75,13 @@ if(!empty($_POST)) {
             'session_gifts' => $gifts
         ]);
 
+        $hash = md5($session_id);
+
         $app['db']->Update('whish_sessions', [
-            'session_hash' => md5($session_id)
+            'session_hash' => $hash
         ], ['session_id' => $session_id]);
     
-        setcookie($cookie_name, $session_id, strtotime($list['list_date']), "/");
+        setcookie($cookie_name, $hash, strtotime($list['list_date']), "/");
     }
 
 }

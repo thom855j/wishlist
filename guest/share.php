@@ -13,8 +13,8 @@ if(!empty($list)) {
   $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $list_id); 
 
   if(isset($_COOKIE[$cookie_name])) {
-    $session_id = $_COOKIE[$cookie_name];
-    $visitor = $app['db']->Select("SELECT * from whish_sessions where session_list = '$list_id' AND session_id = '$session_id'"); 
+    $session_hash = $_COOKIE[$cookie_name];
+    $visitor = $app['db']->Select("SELECT * from whish_sessions where session_list = '$list_id' AND session_hash = '$session_hash'"); 
     if(!empty($visitor)) {
       $visitor = json_decode($visitor[0]['session_gifts'], true);
     }
