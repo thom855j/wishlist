@@ -1,4 +1,4 @@
-<?php include '../app/config.php'; ?>
+<?php include '../app/functions.php'; ?>
 <?php include '../app/templates/header.php' ?>
 
 <?php
@@ -32,26 +32,27 @@ if(!empty($_POST)) {
 } 
 ?>
 
-<title>Log på</title>
+<title>Opret profil</title>
 <?php include '../app/templates/crud.php'; ?>
   </head>
 
   <body class="text-center">
     <form class="form-signin" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Min Ønskeliste</h1>
-      <p class=" mb-3">Log venligst ind</p>
+    <h1 class="h3 mb-3 font-weight-normal">Ønskelister</h1>
+      <p class=" mb-3">Opret profil</p>
       <label for="inputEmail" class="sr-only">Email</label>
       <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Kode</label>
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Kode" required="">
       <div class="checkbox mb-3">
         <label>
-          <input type="checkbox" value="remember-me"> Husk mig
+          <input type="checkbox" value="remember-me"> Jeg accepptere hjemmesidens vilkår og betingelser.
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Log på</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Opret</button>
+      <a class="mt-5 mb-3" href="<?php url('/auth/login'); ?>">Log på</a>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>">Gå tilbage</a>
-      <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
+      <a class="mt-5 mb-3" href="<?php url(); ?>">Gå tilbage</a>
+      <p class="mt-5 mb-3 text-muted"><?php app('name'); ?></p>
     </form>
     

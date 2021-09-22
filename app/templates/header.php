@@ -10,4 +10,4 @@
     <meta name="generator" content="Hugo 0.88.1">
     <link rel="icon" href="favicon.png">
     <meta name="theme-color" content="#7952b3">
-    <link rel="canonical" href="<?php echo $app['url']; ?>">
+    <link rel="canonical" href="<?php app('url'); ?>">

@@ -2,9 +2,10 @@
 <?php include '../app/templates/header.php'; ?>   
 
 <?php 
+
+$list_id = $_GET['list'];
+
 if(!empty($_POST)) {
- 
-  $list_id = $_POST['list'];
 
   $app['db']->Insert('whish_gifts', [
     'gift_name' => $app['db']->CleanDBData($_POST['name']),
@@ -16,7 +17,7 @@ if(!empty($_POST)) {
     'gift_list' => $list_id,
   ]);
 
-  //redirect('/gift/read?list=' . $list_id);
+  redirect('/gift/read?list=' . $list_id);
 } 
 ?>
 
@@ -41,9 +42,8 @@ if(!empty($_POST)) {
       <input type="text" name="note" id="note" class="form-control" placeholder="Note">
       <label for="qty" class="sr-only">Ønsket antal</label>
       <input type="number" name="qty" id="qty" class="form-control" placeholder="Antal">
-      <input type="hidden" name="list" value="<?php echo $_GET['list']; ?>">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Gem ønske</button>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/gift/read?list=3">Gå tilbage</a>
-      <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
+      <a class="mt-5 mb-3" href="<?php url(); ?>/gift/read?list=<?php echo $list_id; ?>">Gå tilbage</a>
+      <p class="mt-5 mb-3 text-muted"><?php app('name'); ?></p>
     </form> 

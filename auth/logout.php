@@ -1,1 +1,7 @@
-<?php include '../app/config.php'; ?>
+<?php 
+
+include '../app/functions.php'; 
+
+logout();
+
+redirect('/');

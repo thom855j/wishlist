@@ -9,6 +9,9 @@ require 'classes/simple.db.class.php';
 
 session_start();
 
+$app['cookie_name'] = 'session';
+$app['session_name'] = 'user';
+
 $app['db'] = new SimpleDB(['host' => 'localhost', 'user' => 'root','pass' => '','database' => 'dev']);
 
 $app['url'] = 'http://localhost/whishlist';
@@ -17,4 +20,4 @@ $app['asset'] = $app['url'] . '/public/assets';
 
 $app['name'] = 'Ønskelister';
 
-$app['title'] = 'Mine Ønskelister - Ønskelister til alle begivenheder';
+$app['title'] = 'Ønskelister - Ønskelister til alle begivenheder';

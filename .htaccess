@@ -6,4 +6,4 @@ RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-RewriteRule ^([0-9]+) gift/share.php?id=$1
+RewriteRule ^([0-9]+) guest/share.php?id=$1

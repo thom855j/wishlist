@@ -4,6 +4,8 @@
 
 <?php include '../app/templates/app.php'; ?>
 
+<?php is_auth(); ?>
+
 <?php $lists = $app['db']->Select('select * from whish_lists'); ?>
 
 <title>Mine ønskelister</title>
@@ -12,20 +14,14 @@
 
 <body>
 
-<div class="container py-3">
-  <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="<?php echo $app['url'] ?>" class="d-flex align-items-center text-dark text-decoration-none">
-    <span class="fs-4"><?php echo $app['name']; ?></span>
-      </a>
 
-      <?php include '../app/templates/nav.php'; ?>
-    </div>
-  </header>
+<?php include '../app/templates/nav.php'; ?>
+
   
   <main>
       
     <h2 id="produkter" class="display-6 text-center mb-4">Mine ønskelister</h2>
+    <a href="<?php echo $app['url'] ?>/list/create"><button type="button" class="btn btn-primary">Opret ønskeliste</button></a>
 
 
     <div class="table-responsive">
@@ -35,7 +31,7 @@
             <th>ID</th>
             <th>Title</th>
             <th>Subtitle</th>
-            <th>Dato</th>
+            <th>Udløbsdato</th>
             <th>Link</th>
             <th>Kode</th>
             <th>Handling</th>

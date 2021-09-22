@@ -1,24 +1,52 @@
-<?php include '../app/config.php'; ?>;
-<?php include '../app/templates/header.php'; ?>  
+<?php include '../app/functions.php'; ?>;
+<?php include '../app/templates/header.php'; ?>   
 
-<title>Rediger produkt</title>
+<?php 
+
+$list_id = $_GET['list'];
+$gift_id = $_GET['id'];
+
+if(!empty($_POST)) {
+
+  $app['db']->Update('whish_gifts', [
+    'gift_name' => $app['db']->CleanDBData($_POST['name']),
+    'gift_image' => $app['db']->CleanDBData($_POST['img']),
+    'gift_qty' => $app['db']->CleanDBData($_POST['qty']),
+    'gift_price' => $app['db']->CleanDBData($_POST['price']),
+    'gift_link' => $app['db']->CleanDBData($_POST['link']),
+    'gift_note' => $app['db']->CleanDBData($_POST['note'])
+  ], ['gift_id' => $gift_id, 'gift_list' => $list_id]);
+
+  redirect('/gift/read?list=' . $list_id);
+
+} 
+
+$gift = $app['db']->Select('select * from whish_gifts where gift_id = ' . $gift_id)[0];
+?>
+
+<title>Rediger gave</title>
 
 <?php include '../app/templates/crud.php'; ?>
 
   </head>
 
   <body class="text-center">
-    <form class="form-signin" action="" method="post">
+    <form class="form-signin" action="" method="post" enctype="multipart/form-data">
       <h1 class="h3 mb-3 font-weight-normal">Rediger gave</h1>
-      <label for="title" class="sr-only">Navn *</label>
-      <input type="text" name="title" id="title" class="form-control" placeholder="Titel *" required="" autofocus="">
-      <label for="subtitle" class="sr-only">Undertitel</label>
-      <input type="text" name="subtitle" id="subtitle" class="form-control" placeholder="Undertitel">
-      <label for="code" class="sr-only">Kode</label>
-      <input type="password" name="code" id="code" class="form-control" placeholder="Kodebeskyttet">
- 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Gem gave</button>
+      <label for="name" >Navn *</label>
+      <input type="text" name="name" id="name" class="form-control" placeholder="Navn på øsnke" required="" autofocus="" value="<?php echo $gift['gift_name'] ?>">
+      <label for="img" >Billedlink</label>
+      <input type="text" name="img" id="img" class="form-control" placeholder="Billedelink" value="<?php echo $gift['gift_image'] ?>">
+      <label for="price" >Pris</label>
+      <input type="number" name="price" id="price" class="form-control" placeholder="Pris" value="<?php echo $gift['gift_price'] ?>">
+      <label for="price" >Link</label>
+      <input type="url" name="link" id="link" class="form-control" placeholder="Link" value="<?php echo $gift['gift_link'] ?>">
+      <label for="note" >Note</label>
+      <input type="text" name="note" id="note" class="form-control" placeholder="Note" value="<?php echo $gift['gift_note'] ?>">
+      <label for="qty">Ønsket antal</label>
+      <input type="number" name="qty" id="qty" class="form-control" placeholder="Antal" value="<?php echo $gift['gift_qty'] ?>">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Gem ønske</button>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/gift/read?list=3">Gå tilbage</a>
+      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/gift/read?list=<?php echo $list_id; ?>">Gå tilbage</a>
       <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
     </form> 

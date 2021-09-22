@@ -32,13 +32,13 @@ if(!empty($_POST)) {
       <label for="subtitle" class="sr-only">Undertitel</label>
       <input type="text" name="subtitle" id="subtitle" class="form-control" placeholder="Undertitel">
       <label for="code" class="sr-only">Dato</label>
-      <input type="text" name="date" id="date" class="form-control" placeholder="Dato for begivenhed">
+      <input type="text" name="date" id="date" class="form-control" placeholder="Dato for begivenhed" autocomplete="off">
       <label for="code" class="sr-only">Kode</label>
       <input type="text" name="code" id="code" class="form-control" placeholder="Kodebeskyttet">
  
       <button class="btn btn-lg btn-primary btn-block" type="submit">Opret ønskeliste</button>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>">Gå tilbage</a>
+      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>/list/read">Gå tilbage</a>
       <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
     </form> 
 <?php include '../app/templates/scripts.php'; ?>

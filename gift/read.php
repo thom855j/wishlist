@@ -17,16 +17,7 @@ $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $li
 </head>
 <body>
 
-<div class="container py-3">
-  <header>
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="<?php echo $app['url'] ?>" class="d-flex align-items-center text-dark text-decoration-none">
-    <span class="fs-4"><?php echo $app['name']; ?></span>
-      </a>
-
-      <?php include '../app/templates/nav.php'; ?>
-    </div>
-  </header>
+<?php include '../app/templates/nav.php'; ?>
   
   <main>
       
@@ -74,7 +65,7 @@ $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $li
               <td><?php echo $gift['gift_reservations']; ?></td>
               <td>
                 <a href="<?php echo $app['url']; ?>/gift/update?id=<?php echo $gift['gift_id']; ?>&list=<?php echo $list_id; ?>" class="btn btn-warning">Rediger</a>
-                <a href="" class="btn btn-danger">Slet</a>
+                <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/gift/delete?id=<?php echo $gift['gift_id']; ?>&list=<?php echo $list_id; ?>" class="btn btn-danger">Slet</a>
             </td>
             </tr>
           <?php endforeach; ?>

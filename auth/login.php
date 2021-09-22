@@ -1,15 +1,17 @@
-<?php include '../app/config.php'; ?>
+<?php include '../app/functions.php'; ?>
 <?php include '../app/templates/header.php' ?>
 
 <?php
 if(!empty($_POST)) {
 
-  $email =  $app['db']->CleanDBData($_POST['email']);
+  $login =  $app['db']->CleanDBData($_POST['login']);
   $password =  $app['db']->CleanDBData(md5($_POST['password']));
-  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = {$email} AND user_pass = {$password}");
+  $user = $app['db']->Select("SELECT * FROM whish_users WHERE user_email = '$login' OR user_name = '$login' AND user_pass = '$password' ")[0];
+
 
   if($user) {
-    header('Location: ' . $app['url'] . '/list/read');
+    login($user['user_id']);
+    redirect('/list/read');
   } else {
 ?>
 <div class="alert alert-danger" role="alert">
@@ -27,10 +29,10 @@ if(!empty($_POST)) {
 
   <body class="text-center">
     <form class="form-signin" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Min Ønskeliste</h1>
-      <p class=" mb-3">Log venligst ind</p>
-      <label for="inputEmail" class="sr-only">Email</label>
-      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+    <h1 class="h3 mb-3 font-weight-normal">Ønskelister</h1>
+      <p class=" mb-3">Log på</p>
+      <label for="login" class="sr-only">Email/brugernavn</label>
+      <input type="text" name="login" id="login" class="form-control" placeholder="Email eller brugernavn" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Kode</label>
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Kode" required="">
       <div class="checkbox mb-3">
@@ -39,8 +41,9 @@ if(!empty($_POST)) {
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Log på</button>
+      <a class="mt-5 mb-3" href="<?php url('/auth/signup'); ?>">Opret profil</a>
       <br>
-      <a class="mt-5 mb-3" href="<?php echo $app['url']; ?>">Gå tilbage</a>
-      <p class="mt-5 mb-3 text-muted"><?php echo $app['name']; ?></p>
+      <a class="mt-5 mb-3" href="<?php url(); ?>">Gå tilbage</a>
+      <p class="mt-5 mb-3 text-muted"><?php app('name'); ?></p>
     </form>
     
