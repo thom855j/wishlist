@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 22. 09 2021 kl. 13:32:44
+-- Genereringstid: 22. 09 2021 kl. 22:10:12
 -- Serverversion: 10.4.21-MariaDB
 -- PHP-version: 8.0.10
 
@@ -33,7 +33,7 @@ CREATE TABLE `whish_gifts` (
   `gift_name` varchar(255) DEFAULT NULL,
   `gift_qty` int(11) NOT NULL DEFAULT 1,
   `gift_reservations` int(11) NOT NULL DEFAULT 0,
-  `gift_price` int(11) NOT NULL DEFAULT 0,
+  `gift_price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `gift_note` varchar(255) DEFAULT NULL,
   `gift_link` varchar(255) DEFAULT NULL,
   `gift_list` bigint(20) NOT NULL
@@ -44,9 +44,9 @@ CREATE TABLE `whish_gifts` (
 --
 
 INSERT INTO `whish_gifts` (`gift_id`, `gift_image`, `gift_name`, `gift_qty`, `gift_reservations`, `gift_price`, `gift_note`, `gift_link`, `gift_list`) VALUES
-(1, 'https://y-design.dk/wp-content/uploads/2020/06/20-RC912-royal-copenhagen-kande-med-laag-stemning-600x600.jpg', 'Royal copenhagen middagstallerken', 3, 0, 250, 'KØB ALLE', '', 1),
-(9, '', 'Kaffekande', 6, 0, 200, '', '', 2),
-(10, '', 'Briller', 2, 0, 500, '', '', 2);
+(9, '', 'Kaffekande', 6, 2, '200.00', '', '', 2),
+(10, '', 'Briller', 2, 1, '500.00', '', '', 2),
+(11, '', 'Vase', 5, 1, '9999.95', '', '', 4);
 
 -- --------------------------------------------------------
 
@@ -70,8 +70,8 @@ CREATE TABLE `whish_lists` (
 --
 
 INSERT INTO `whish_lists` (`list_id`, `list_date`, `list_title`, `list_subtitle`, `list_link`, `list_user`, `list_code`, `list_active`) VALUES
-(1, '2021-09-21 12:00:42', 'Min fødselsdag i morgen', '2022', NULL, 1, '12345', 1),
-(2, '2022-08-13 00:05:36', 'Bryllup', 'Caroline & Thomas', NULL, NULL, '54321', 1);
+(2, '2022-08-13 00:05:36', 'Bryllup', 'Caroline & Thomas', 'c81e728d9d4c2f636f067f89cc14862c', 1, '321', 1),
+(4, '2021-12-10 19:00:50', 'Min fødselsdag', 'Thomas', 'a87ff679a2f3e71d9181a67b7542122c', 1, '123', 1);
 
 -- --------------------------------------------------------
 
@@ -87,6 +87,14 @@ CREATE TABLE `whish_sessions` (
   `session_gifts` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Data dump for tabellen `whish_sessions`
+--
+
+INSERT INTO `whish_sessions` (`session_id`, `session_date`, `session_list`, `session_hash`, `session_gifts`) VALUES
+(19, '2021-09-22 19:32:09', 2, '1f0e3dad99908345f7439f8ffabdffc4', '{\"9\":\"1\"}'),
+(20, '2021-09-22 19:39:21', 4, '1f0e3dad99908345f7439f8ffabdffc4', '{\"11\":\"1\"}');
+
 -- --------------------------------------------------------
 
 --
@@ -98,15 +106,16 @@ CREATE TABLE `whish_users` (
   `user_name` varchar(255) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
   `user_email` varchar(255) NOT NULL,
-  `user_reset` varchar(255) NOT NULL
+  `user_reset` varchar(255) NOT NULL,
+  `user_session` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Data dump for tabellen `whish_users`
 --
 
-INSERT INTO `whish_users` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_reset`) VALUES
-(1, 'john', '1a1dc91c907325c69271ddf0c944bc72', 'john@example.com', '');
+INSERT INTO `whish_users` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_reset`, `user_session`) VALUES
+(1, 'john', '1a1dc91c907325c69271ddf0c944bc72', 'john@example.com', '', 'c4ca4238a0b923820dcc509a6f75849b');
 
 --
 -- Begrænsninger for dumpede tabeller
@@ -144,19 +153,19 @@ ALTER TABLE `whish_users`
 -- Tilføj AUTO_INCREMENT i tabel `whish_gifts`
 --
 ALTER TABLE `whish_gifts`
-  MODIFY `gift_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `gift_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Tilføj AUTO_INCREMENT i tabel `whish_lists`
 --
 ALTER TABLE `whish_lists`
-  MODIFY `list_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `list_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Tilføj AUTO_INCREMENT i tabel `whish_sessions`
 --
 ALTER TABLE `whish_sessions`
-  MODIFY `session_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `session_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Tilføj AUTO_INCREMENT i tabel `whish_users`
