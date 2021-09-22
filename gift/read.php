@@ -39,7 +39,6 @@ $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $li
             <th>Link</th>
             <th>Note</th>
             <th>Ønsket</th>
-            <th>Reserveret</th>
             <th>Handling</th>
           </tr>
         </thead>
@@ -62,7 +61,6 @@ $gifts = $app['db']->Select('select * from whish_gifts where gift_list = ' . $li
               <?php endif; ?>
               <td><?php echo $gift['gift_note']; ?></td>
               <td><?php echo $gift['gift_qty']; ?></td>
-              <td><?php echo $gift['gift_reservations']; ?></td>
               <td>
                 <a href="<?php echo $app['url']; ?>/gift/update?id=<?php echo $gift['gift_id']; ?>&list=<?php echo $list_id; ?>" class="btn btn-warning">Rediger</a>
                 <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/gift/delete?id=<?php echo $gift['gift_id']; ?>&list=<?php echo $list_id; ?>" class="btn btn-danger">Slet</a>

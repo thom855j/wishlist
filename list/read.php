@@ -29,8 +29,8 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Subtitle</th>
+            <th>Titel</th>
+            <th>Undertitel</th>
             <th>Udløbsdato</th>
             <th>Link</th>
             <th>Kode</th>
