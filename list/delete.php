@@ -1,4 +1,4 @@
-h<?php
+<?php
 
 include '../app/includes/functions.php';
 
