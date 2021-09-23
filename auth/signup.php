@@ -21,16 +21,8 @@ if(!empty($_POST)) {
       $_SESSION['user'] = $user_id;
 
      header('Location: ' . $app['url'] . '/list/read');
-  } else {
-?>
-
-<div class="alert alert-danger" role="alert">
-  Bruger eksisterer ikke eller forkerte oplysninger!
-</div>
- <?php   
   }
-
-} 
+}
 ?>
 
 <?php include '../app/templates/header.php' ?>

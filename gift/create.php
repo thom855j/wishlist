@@ -3,12 +3,17 @@
 include '../app/includes/functions.php';
 
 $list_id = $_GET['list'];
+$img_file = '';
 
 if(!empty($_POST)) {
 
+  if(!empty($_FILES['img']['name'])) {
+    $img_file = list_file_upload('img', $list_id);
+  }
+
   $app['db']->Insert('wish_gifts', [
     'gift_name' => $app['db']->CleanDBData($_POST['name']),
-    'gift_image' => $app['db']->CleanDBData($_POST['img']),
+    'gift_image' => $img_file,
     'gift_qty' => $app['db']->CleanDBData($_POST['qty']),
     'gift_price' => $app['db']->CleanDBData($_POST['price']),
     'gift_link' => $app['db']->CleanDBData($_POST['link']),
@@ -32,7 +37,7 @@ if(!empty($_POST)) {
       <label for="name" class="sr-only">Navn *</label>
       <input type="text" name="name" id="name" class="form-control" placeholder="Navn på øsnke" required="" autofocus="">
       <label for="img" class="sr-only">Billedlink</label>
-      <input type="text" name="img" id="img" class="form-control" placeholder="Billedelink">
+      <input type="file" name="img" id="img" class="form-control" placeholder="Billedelink">
       <label for="price" class="sr-only">Pris</label>
       <input type="number" step=".01" name="price" id="price" class="form-control" placeholder="Pris">
       <label for="price" class="sr-only">Link</label>

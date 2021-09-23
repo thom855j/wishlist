@@ -45,7 +45,7 @@ $lists = $app['db']->Select("SELECT * FROM wish_lists WHERE list_user = $user_id
             <td><?php echo $list['list_id']; ?></td>
             <td><?php echo $list['list_title']; ?></td>
             <td><?php echo $list['list_subtitle']; ?></td>
-            <td><?php echo date('d-m-Y H:i', strtotime($list['list_date'])); ?></td>
+            <td><?php echo date('d-m-Y', strtotime($list['list_date'])); ?></td>
             <td><a href="<?php echo $app['url']; ?>/<?php echo $list['list_id'] ?>">Link</a></td>
             <td><?php echo $list['list_code']; ?></td>
             <td>

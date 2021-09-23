@@ -41,9 +41,12 @@ if(!empty($list)) {
   <?php if(!empty($gifts)): ?>
     <h2 id="produkter" class="display-6 text-center mb-4"><?php echo $list[0]['list_title']; ?></h2>
     <p class="text-center"><?php echo $list[0]['list_subtitle']; ?></p>
-    <h4 class="text-center font-weight-bold">Dato: <?php echo date('d-m-Y H:i', strtotime($list[0]['list_date'])); ?></h4>
+    <h4 class="text-center font-weight-bold">Dato: <?php echo date('d-m-Y', strtotime($list[0]['list_date'])); ?></h4>
 
-
+    <?php if(auth()): ?>
+    <a href="<?php echo $app['url'] ?>/list/read"><button type="button" class=" btn btn-secondary">Tilbage til lister</button></a>
+    <?php endif; ?>
+    
     <div class="table-responsive">
       <table class="table text-center">
         <thead>
@@ -63,9 +66,9 @@ if(!empty($list)) {
           <?php foreach($gifts as $gift): ?>
           <tr>
           <?php if(!empty($gift['gift_image'])): ?>
-              <td><img src="<?php echo $gift['gift_image']; ?>" width="150" height="100"></td>
-              <?php else: ?>
-                <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="150" height="100"></td>
+            <td><a target="_blank" href="public/uploads/<?php echo $list_id; ?>/<?php echo $gift['gift_image']; ?>"><img src="public/uploads/<?php echo $list_id; ?>/<?php echo $gift['gift_image']; ?>" width="100" height="100"></a></td>
+             <?php else: ?>
+                <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="100" height="100"></td>
               <?php endif; ?>
             <td><?php echo $gift['gift_name']; ?></td>
             <td><?php echo number_format($gift['gift_price'],2,',','.'); ?> kr.</td>

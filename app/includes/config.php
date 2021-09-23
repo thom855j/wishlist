@@ -11,6 +11,11 @@ session_start();
 
 $app['version'] = '1.0';
 
+define('KB', 1024);
+define('MB', 1048576);
+define('GB', 1073741824);
+define('TB', 1099511627776);
+
 $app['cookie_name'] = 'session';
 $app['session_name'] = 'user';
 $app['list_name'] = 'list';

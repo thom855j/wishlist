@@ -21,7 +21,7 @@ $gifts = $app['db']->Select('SELECT * FROM wish_gifts WHERE gift_list = ' . $lis
       
   <h2 id="produkter" class="display-6 text-center mb-4"><?php echo $list[0]['list_title']; ?></h2>
     <p class="text-center"><?php echo $list[0]['list_subtitle']; ?></p>
-    <p class="text-center"><?php echo date('d-m-Y H:i', strtotime($list[0]['list_date'])); ?></p>
+    <p class="text-center"><?php echo date('d-m-Y', strtotime($list[0]['list_date'])); ?></p>
     <a href="<?php echo $app['url'] ?>/gift/create?list=<?php echo $list[0]['list_id']; ?>"><button type="button" class=" btn btn-primary">Tilføj ønske</button></a>
     <a href="<?php echo $app['url'] ?>/list/read"><button type="button" class=" btn btn-secondary">Tilbage til lister</button></a>
 
@@ -46,9 +46,9 @@ $gifts = $app['db']->Select('SELECT * FROM wish_gifts WHERE gift_list = ' . $lis
             <tr>
               <td><?php echo $gift['gift_id']; ?></td>
               <?php if(!empty($gift['gift_image'])): ?>
-              <td><img src="<?php echo $gift['gift_image']; ?>" width="150" height="100"></td>
+              <td><a target="_blank" href="../public/uploads/<?php echo $list_id; ?>/<?php echo $gift['gift_image']; ?>"><img src="../public/uploads/<?php echo $list_id; ?>/<?php echo $gift['gift_image']; ?>" width="100" height="100"></a></td>
               <?php else: ?>
-                <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="150" height="100"></td>
+                <td><img src="<?php echo $app['url']; ?>/public/img/no-image.png" width="100" height="100"></td>
               <?php endif; ?>
               <td><?php echo $gift['gift_name']; ?></td>
               <td><?php echo number_format($gift['gift_price'],2,',','.'); ?></td>
