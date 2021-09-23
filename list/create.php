@@ -1,7 +1,7 @@
-<?php include '../app/includes/functions.php'; ?>;
-<?php include '../app/templates/header.php'; ?>  
-
 <?php 
+
+include '../app/includes/functions.php'; 
+
 if(!empty($_POST)) {
  
   $phptime = $app['db']->CleanDBData($_POST['date']);
@@ -22,9 +22,8 @@ if(!empty($_POST)) {
   header('Location: ' . $app['url'] . '/list/read');
 } 
 ?>
-
+<?php include '../app/templates/header.php'; ?>  
 <title>Opret ønskeliste</title>
-
 <?php include '../app/templates/crud.php'; ?>
   </head>
 

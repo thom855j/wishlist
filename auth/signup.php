@@ -1,7 +1,7 @@
-<?php include '../app/includes/functions.php'; ?>
-<?php include '../app/templates/header.php' ?>
+<?php 
 
-<?php
+include '../app/includes/functions.php'; 
+
 if(!empty($_POST)) {
 
   $email =  $app['db']->CleanDBData($_POST['email']);
@@ -23,6 +23,7 @@ if(!empty($_POST)) {
      header('Location: ' . $app['url'] . '/list/read');
   } else {
 ?>
+
 <div class="alert alert-danger" role="alert">
   Bruger eksisterer ikke eller forkerte oplysninger!
 </div>
@@ -32,6 +33,7 @@ if(!empty($_POST)) {
 } 
 ?>
 
+<?php include '../app/templates/header.php' ?>
 <title>Opret profil</title>
 <?php include '../app/templates/crud.php'; ?>
   </head>

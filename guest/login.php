@@ -1,7 +1,6 @@
-<?php include '../app/includes/functions.php'; ?>
-<?php include '../app/templates/header.php' ?>
+<?php 
 
-<?php
+include '../app/includes/functions.php'; 
 
 if(!empty($_POST)) {
 
@@ -16,7 +15,7 @@ if(!empty($_POST)) {
   } 
 }
 ?>
-
+<?php include '../app/templates/header.php' ?>
 <title>Kodebeskyttet ønskeliste</title>
 <?php include '../app/templates/crud.php'; ?>
   </head>

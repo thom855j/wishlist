@@ -1,7 +1,6 @@
-<?php include '../app/includes/functions.php'; ?>;
-<?php include '../app/templates/header.php'; ?>   
-
 <?php 
+
+include '../app/includes/functions.php';
 
 $list_id = $_GET['list'];
 $gift_id = $_GET['id'];
@@ -24,6 +23,7 @@ if(!empty($_POST)) {
 $gift = $app['db']->Select('select * from wish_gifts where gift_id = ' . $gift_id)[0];
 ?>
 
+<?php include '../app/templates/header.php'; ?> 
 <title>Rediger gave</title>
 
 <?php include '../app/templates/crud.php'; ?>

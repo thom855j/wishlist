@@ -1,24 +1,22 @@
-<?php include '../app/includes/functions.php'; ?>
+<?php
 
-<?php include '../app/templates/header.php'; ?>   
+include '../app/includes/functions.php'; 
 
-<?php include '../app/templates/app.php'; ?>
+is_auth(); 
 
-<?php is_auth(); ?>
-
-<?php 
 $user_id = user();
 $lists = $app['db']->Select("SELECT * FROM wish_lists WHERE list_user = $user_id"); 
 ?>
+
+<?php include '../app/templates/header.php'; ?>   
+<?php include '../app/templates/app.php'; ?>
+<?php include '../app/templates/nav.php'; ?>
 
 <title>Mine ønskelister</title>
 </head>
 
 
 <body>
-
-
-<?php include '../app/templates/nav.php'; ?>
 
   
   <main>

@@ -1,9 +1,7 @@
-<?php include '../app/includes/functions.php'; ?>   
-<?php include '../app/templates/header.php'; ?>   
-
-<?php include '../app/templates/app.php'; ?>
-
 <?php 
+
+include '../app/includes/functions.php'; 
+
 $cookie_name = $app['cookie_name'];
 
 $list_id = $app['db']->CleanDBData($_GET['id']);
@@ -28,6 +26,8 @@ if(!empty($list)) {
 
 ?>
 
+<?php include '../app/templates/header.php'; ?>   
+<?php include '../app/templates/app.php'; ?>
 <title>Ønskeliste: <?php echo $list[0]['list_title']; ?></title>
 </head>
 <body>

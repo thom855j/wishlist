@@ -1,7 +1,5 @@
-<?php include '../app/includes/functions.php'; ?>;
-<?php include '../app/templates/header.php'; ?>  
-
 <?php 
+include '../app/includes/functions.php'; 
 
 $list_id = $app['db']->CleanDBData($_GET['id']);
 
@@ -23,7 +21,7 @@ $list = $app['db']->Select('select * from wish_lists where list_id = ' . $list_i
 
 ?>
 
-
+<?php include '../app/templates/header.php'; ?>  
 <title>Rediger ønskeliste</title>
 
 <?php include '../app/templates/crud.php'; ?>

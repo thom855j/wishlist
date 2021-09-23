@@ -1,7 +1,6 @@
-<?php include '../app/includes/functions.php'; ?>;
-<?php include '../app/templates/header.php'; ?>   
-
 <?php 
+
+include '../app/includes/functions.php';
 
 $list_id = $_GET['list'];
 
@@ -20,7 +19,7 @@ if(!empty($_POST)) {
   redirect('/gift/read?list=' . $list_id);
 } 
 ?>
-
+<?php include '../app/templates/header.php'; ?>
 <title>Tilføj gave</title>
 
 <?php include '../app/templates/crud.php'; ?>

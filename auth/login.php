@@ -1,8 +1,7 @@
-<?php include '../app/includes/functions.php'; ?>
-<?php include '../app/templates/header.php' ?>
-
-<?php
+<?php 
+include '../app/includes/functions.php'; 
 $cookie_name = $app['session_name'];
+
 if(isset($_COOKIE[$cookie_name])) {
   $user_hash = $_COOKIE[$cookie_name];
   $user = $app['db']->Select("SELECT * FROM wish_users WHERE user_session = '$user_hash' ");
@@ -34,17 +33,10 @@ if(!empty($_POST)) {
 
     login($user[0]['user_id']);
     redirect('/list/read');
-  } else {
-?>
-<div class="alert alert-danger" role="alert">
-  Bruger eksisterer ikke eller forkerte oplysninger!
-</div>
- <?php   
   }
-
-} 
+}
 ?>
-
+<?php include '../app/templates/header.php' ?>
 <title>Log på</title>
 <?php include '../app/templates/crud.php'; ?>
   </head>
@@ -68,4 +60,3 @@ if(!empty($_POST)) {
       <a class="mt-5 mb-3" href="<?php url(); ?>">Gå tilbage</a>
       <p class="mt-5 mb-3 text-muted"><?php app('name'); ?></p>
     </form>
-    

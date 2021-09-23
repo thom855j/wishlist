@@ -1,10 +1,6 @@
-<?php include '../app/includes/functions.php'; ?>;
-<?php include '../app/templates/header.php'; ?>   
+<?php 
 
-
-<?php include '../app/templates/app.php'; ?>
-
-<?php
+include '../app/includes/functions.php';
 
 $list_id = $app['db']->CleanDBData($_GET['list']);
 $list = $app['db']->Select('SELECT * FROM wish_lists WHERE list_id = ' . $list_id);
@@ -13,6 +9,8 @@ $gifts = $app['db']->Select('SELECT * FROM wish_gifts WHERE gift_list = ' . $lis
 
 ?>
 
+<?php include '../app/templates/header.php'; ?>   
+<?php include '../app/templates/app.php'; ?>
 <title>Gaver</title>
 </head>
 <body>
