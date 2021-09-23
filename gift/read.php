@@ -7,9 +7,9 @@
 <?php
 
 $list_id = $app['db']->CleanDBData($_GET['list']);
-$list = $app['db']->Select('select * from wish_lists where list_id = ' . $list_id);
+$list = $app['db']->Select('SELECT * FROM wish_lists WHERE list_id = ' . $list_id);
 
-$gifts = $app['db']->Select('select * from wish_gifts where gift_list = ' . $list_id);
+$gifts = $app['db']->Select('SELECT * FROM wish_gifts WHERE gift_list = ' . $list_id);
 
 ?>
 
@@ -70,6 +70,10 @@ $gifts = $app['db']->Select('select * from wish_gifts where gift_list = ' . $lis
         </tbody>
       </table>
     </div>
+  
+  <?php else: ?>
+    <br><br>
+    <p>Ingen gaver, endnu.</p>
  <?php endif; ?>
 
    

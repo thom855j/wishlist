@@ -32,11 +32,22 @@ function login($user_id) {
     return false;
 }
 
-function logout() {
+function session_logout() {
     global $app;
     $name = app('session_name', false);
     if(isset($_SESSION[$name])) {
         unset($_SESSION[$name]);
+        return true;
+    }
+    return false;
+}
+
+function cookie_logout() {
+    global $app;
+    $name = app('session_name', false);
+    if(isset($_COOKIE[$name])) {
+        unset($_COOKIE[$name]); 
+        setcookie($name, null, -1, '/'); 
         return true;
     }
     return false;

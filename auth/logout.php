@@ -2,6 +2,8 @@
 
 include '../app/includes/functions.php'; 
 
-logout();
+session_logout();
+
+cookie_logout();
 
 redirect('/');

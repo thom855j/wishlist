@@ -8,7 +8,7 @@
 
 <?php 
 $user_id = user();
-$lists = $app['db']->Select("SELECT * from wish_lists WHERE list_user = $user_id"); 
+$lists = $app['db']->Select("SELECT * FROM wish_lists WHERE list_user = $user_id"); 
 ?>
 
 <title>Mine ønskelister</title>
@@ -26,7 +26,7 @@ $lists = $app['db']->Select("SELECT * from wish_lists WHERE list_user = $user_id
     <h2 id="produkter" class="display-6 text-center mb-4">Mine ønskelister</h2>
     <a href="<?php echo $app['url'] ?>/list/create"><button type="button" class="btn btn-primary">Opret ønskeliste</button></a>
 
-
+<?php if(!empty($lists)): ?>
     <div class="table-responsive">
       <table class="table text-center">
         <thead>
@@ -60,6 +60,10 @@ $lists = $app['db']->Select("SELECT * from wish_lists WHERE list_user = $user_id
         </tbody>
       </table>
     </div>
+    <?php else: ?>
+      <br><br>
+      <p>Ingen ønskelister, endnu.</p>
+    <?php endif; ?> 
  
 
    

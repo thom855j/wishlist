@@ -36,7 +36,7 @@ if(!empty($_POST)) {
       <label for="subtitle" class="sr-only">Undertitel</label>
       <input type="text" name="subtitle" id="subtitle" class="form-control" placeholder="Undertitel">
       <label for="code" class="sr-only">Dato</label>
-      <input type="text" name="date" id="date" class="form-control" placeholder="Dato for begivenhed" autocomplete="off">
+      <input type="text" name="date" id="date" class="form-control" placeholder="Dato for begivenhed *" autocomplete="off" required="">
       <label for="code" class="sr-only">Kode</label>
       <input type="text" name="code" id="code" class="form-control" placeholder="Kodebeskyttet">
  
