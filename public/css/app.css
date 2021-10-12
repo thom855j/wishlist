@@ -27,3 +27,7 @@ html {
     font-size: 3.5rem;
   }
 }
+
+@media print {
+    .no-print {display: none;}
+}

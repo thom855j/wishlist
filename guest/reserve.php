@@ -35,6 +35,8 @@ if(isset($_GET['delete']) && isset($_COOKIE[$cookie_name])) {
 if(!empty($_POST)) {
 
     $list_id = $_POST['list'];
+  
+  	$list = $app['db']->Select("SELECT * FROM wish_lists WHERE list_id = '$list_id'")[0];
 
     $gift_id = $_POST['gift'];
     $qty =  $_POST['qty'];

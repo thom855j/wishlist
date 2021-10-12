@@ -20,7 +20,7 @@ if(!empty($_POST)) {
     $img_file = list_file_upload('img', $list_id);
 
     if(!$img_file) {
-      echo 'Error uploading file!';
+      redirect('/gift/read?list=' . $list_id);
     } else {
       $current_img = $_POST['current_img'];
 
