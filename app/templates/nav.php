@@ -10,7 +10,7 @@
        ?>" class="d-flex align-items-center text-dark text-decoration-none">
     <span class="fs-4"><?php app('name'); ?></span>
       </a>
-      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <nav class="no-print d-inline-flex mt-2 mt-md-0 ms-md-auto">
             <?php if(!auth()): ?>  
             <a class="p-2 text-dark text-decoration-none" href="<?php url('/auth/signup'); ?>">Opret profil</a>
             <a class="p-2 text-dark text-decoration-none" href="<?php url('/auth/login'); ?>">Log på</a>
