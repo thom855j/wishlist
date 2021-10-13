@@ -49,7 +49,7 @@ if(!empty($list)) {
     <h4 class="text-center font-weight-bold">Dato: <?php echo date('d-m-Y', strtotime($list[0]['list_date'])); ?></h4>
 
     <?php if(auth()): ?>
-    <a href="<?php echo $app['url'] ?>/list/read"><button type="button" class=" btn btn-secondary">Tilbage til lister</button></a>
+    <a href="<?php echo $app['url'] ?>/list/read"><button type="button" class="no-print btn btn-secondary">Tilbage til lister</button></a>
     <?php endif; ?>
     <button onClick="window.print()" type="button" class="no-print btn btn-success">Print ønskeliste</button>
     
@@ -79,7 +79,7 @@ if(!empty($list)) {
             <td><?php echo $gift['gift_name']; ?></td>
             <td><?php echo $gift['gift_note']; ?></td>
             <td>
-           <?php if(!empty($gift['gift_price'])): ?>
+           <?php if($gift['gift_price'] != 0): ?>
             <?php echo number_format($gift['gift_price'],2,',','.'); ?> kr.
             <?php endif; ?>
             </td>
@@ -102,16 +102,17 @@ if(!empty($list)) {
             <?php 
               $gift_id = $gift['gift_id']; 
             ?>
-            <?php if($gift['gift_qty'] != $gift['gift_reservations']): ?>
+            <?php if($gift['gift_qty'] === $gift['gift_reservations'] && $gift['gift_qty'] != 0): ?>
+              <p style="font-style: italic; font-weight: bold; width: 150px;">ER ALLE ALLEREDE KØBT AF ANDRE</p>
+            <?php endif; ?>  
+              <?php if(!isset($visitor[$gift_id]) && $gift['gift_qty'] != 0): ?>
               <form class="no-print" action="<?php url('/guest/reserve'); ?>" method="post">
               <input type="number" id="qty" name="qty" min="1" max="<?php echo $gift['gift_qty'] - $gift['gift_reservations']; ?>" value="1" required>
               <input type="hidden" name="gift" value="<?php echo $gift['gift_id']; ?>">
               <input type="hidden" name="list" value="<?php echo $gift['gift_list']; ?>">
               <input onclick="return confirm('Er du sikker på du vil reservere denne gave?');" type="submit" class="btn btn-primary" value="Reservér">
               </form>
-            <?php else: ?>
-              <p style="font-style: italic; font-weight: bold; width: 150px;">ER ALLE ALLEREDE KØBT AF ANDRE</p>
-            <?php endif; ?>     
+              <?php endif; ?>
             <?php if(isset($visitor[$gift_id])): ?>
                 <p>Du har reserveret: <?php echo $visitor[$gift_id] ?></p>
                 <a onclick="return confirm('Er du sikker?');" href="<?php echo $app['url']; ?>/guest/reserve?delete=1&gift=<?php echo $gift['gift_id']; ?>&list=<?php echo $gift['gift_list']; ?>&qty=<?php echo $visitor[$gift_id] ?>" class="btn btn-secondary">Fortryd reservation?</a>
